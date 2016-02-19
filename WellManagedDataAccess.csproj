@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8D2EEE43-6E37-42FF-8207-5D317A825C99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HappyOracle.WellManagedDataAccess</RootNamespace>
+    <AssemblyName>HappyOracle.WellManagedDataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>packages\Oracle.ManagedDataAccess.12.1.2400\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\XPath\EnumerableEx.cs" />
+    <Compile Include="Client\BindParameter.cs" />
+    <Compile Include="Client\BindParameterCollection.cs" />
+    <Compile Include="Client\WNonQueryCommandBase.cs" />
+    <Compile Include="Helpers\ITraceContext.cs" />
+    <Compile Include="Client\WDataRow.cs" />
+    <Compile Include="Client\WCommand.cs" />
+    <Compile Include="Client\WOracleException.cs" />
+    <Compile Include="Helpers\OdpHelpers.cs" />
+    <Compile Include="Helpers\OracleErrorNumber.cs" />
+    <Compile Include="Helpers\QueryLogging.cs" />
+    <Compile Include="Client\WCommandBase.cs" />
+    <Compile Include="Client\WNonQueryArrayCommand.cs" />
+    <Compile Include="Client\WCommandT.cs" />
+    <Compile Include="Helpers\XmlToSql.cs" />
+    <Compile Include="Helpers\XPath\ParseContextVariable.cs" />
+    <Compile Include="Helpers\XPath\ParseDataContext.cs" />
+    <Compile Include="Helpers\XPath\XPathEvaluator.cs" />
+    <Compile Include="Client\WConnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Client\WNonQueryCommand.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Doc\Ask Tom On Top-n and Pagination Queries.mht" />
+    <None Include="Doc\SqlBinder Classes.cd" />
+    <None Include="Doc\EclipseLibrary.shfbproj" />
+    <None Include="Doc\Regular Expression Based Token Replacement in ASP_NET.mht" />
+    <None Include="LICENSE" />
+    <None Include="packages.config" />
+    <None Include="Readme.md" />
+    <None Include="Wiki\ArrayBinding.md" />
+    <None Include="Wiki\RawOdp.md" />
+    <None Include="Wiki\QueryPruning.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Doc\HTMLPage1.html" />
+    <Content Include="Doc\Oracle Security.txt" />
+    <Content Include="Doc\OracleDataSource.htm" />
+    <Content Include="Doc\OraclemembershipProvider.htm" />
+    <Content Include="Doc\sample_schema.sql" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
