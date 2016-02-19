@@ -1,4 +1,4 @@
-﻿using HappyOracle.WellManagedDataAccess.Helpers;
+﻿using HappyOracle.WellManagedDataAccess.XPath;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System;

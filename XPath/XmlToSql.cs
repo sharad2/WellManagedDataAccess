@@ -1,4 +1,4 @@
-﻿using HappyOracle.WellManagedDataAccess.Helpers.XPath;
+﻿using HappyOracle.WellManagedDataAccess.XPath;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace HappyOracle.WellManagedDataAccess.Helpers
+namespace HappyOracle.WellManagedDataAccess.XPath
 {
     /// <summary>
     /// Provides the functionality to prune an SQL query by interpreting the embedded XML tags

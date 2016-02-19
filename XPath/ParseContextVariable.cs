@@ -2,7 +2,7 @@
 using System.Xml.XPath;
 using System.Xml.Xsl;
 
-namespace HappyOracle.WellManagedDataAccess.Helpers.XPath
+namespace HappyOracle.WellManagedDataAccess.XPath
 {
     internal struct ParseContextVariable:IXsltContextVariable
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Xsl;
 
-namespace HappyOracle.WellManagedDataAccess.Helpers.XPath
+namespace HappyOracle.WellManagedDataAccess.XPath
 {
     /// <summary>
     /// Implements the ResolveVariable() function which simply returns an IXsltContextVariable corresponding

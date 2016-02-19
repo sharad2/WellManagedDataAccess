@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.XPath;
 
-namespace HappyOracle.WellManagedDataAccess.Helpers.XPath
+namespace HappyOracle.WellManagedDataAccess.XPath
 {
     /// <summary>
     /// Provides the ability to evaluate XPath expressions containing variables.

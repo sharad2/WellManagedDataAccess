@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HappyOracle.WellManagedDataAccess.Helpers.XPath
+namespace HappyOracle.WellManagedDataAccess.XPath
 {
     internal static class EnumerableEx
     {
