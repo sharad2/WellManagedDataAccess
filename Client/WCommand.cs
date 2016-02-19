@@ -51,9 +51,9 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </summary>
         /// <param name="arrayBindCount"></param>
         /// <returns></returns>
-        public static WNonQueryArrayCommand Create(string query, int arrayBindCount)
+        public static WArrayBindCommand Create(string query, int arrayBindCount)
         {
-            var binder = new WNonQueryArrayCommand(arrayBindCount);
+            var binder = new WArrayBindCommand(arrayBindCount);
             binder.CommandText = query;
             return binder;
         }

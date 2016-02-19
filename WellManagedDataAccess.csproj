@@ -53,7 +53,7 @@
     <Compile Include="Helpers\OracleErrorNumber.cs" />
     <Compile Include="Helpers\QueryLogging.cs" />
     <Compile Include="Client\WCommandBase.cs" />
-    <Compile Include="Client\WNonQueryArrayCommand.cs" />
+    <Compile Include="Client\WArrayBindCommand.cs" />
     <Compile Include="Client\WCommandT.cs" />
     <Compile Include="XPath\XmlToSql.cs" />
     <Compile Include="XPath\ParseContextVariable.cs" />

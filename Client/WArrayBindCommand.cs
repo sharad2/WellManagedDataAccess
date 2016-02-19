@@ -67,7 +67,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
     /// ]]>
     /// </code>
     /// </example>
-    public class WNonQueryArrayCommand : WNonQueryCommandBase
+    public class WArrayBindCommand : WNonQueryCommandBase
     {
         private readonly int _arrayBindCount;
 
@@ -76,7 +76,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </summary>
         /// <param name="arrayBindCount"></param>
         /// <param name="actionName"></param>
-        internal WNonQueryArrayCommand(int arrayBindCount)
+        internal WArrayBindCommand(int arrayBindCount)
         {
             if (arrayBindCount <= 0)
             {
@@ -102,7 +102,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Parameter name</param>
         /// <param name="values">Array of values. The number of values must be at least <see cref="ArrayBindCount"/></param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<string> values)
+        public WArrayBindCommand Parameter(string field, IEnumerable<string> values)
         {
             if (values == null)
             {
@@ -127,7 +127,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Output parameter name</param>
         /// <param name="setter">values => mylist = values.ToList(). Will not be called if no rows are </param>
         /// <returns>Self to enable chaining</returns>
-        public WNonQueryArrayCommand OutParameter(string field, Action<IEnumerable<string>> setter)
+        public WArrayBindCommand OutParameter(string field, Action<IEnumerable<string>> setter)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.Varchar2, ParameterDirection.Output);
             //param.OracleDbType = OracleDbType.Varchar2;
@@ -142,7 +142,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Output parameter name</param>
         /// <param name="setter">values => mylist = values.ToList()</param>
         /// <returns>Self to enable chaining</returns>
-        public WNonQueryArrayCommand OutParameter(string field, Action<IEnumerable<int>> setter)
+        public WArrayBindCommand OutParameter(string field, Action<IEnumerable<int>> setter)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.Int32, ParameterDirection.Output);
             //param.OracleDbType = OracleDbType.Int32;
@@ -156,7 +156,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Output parameter name</param>
         /// <param name="setter">values => mylist = values.ToList()</param>
         /// <returns>Self to enable chaining</returns>
-        public WNonQueryArrayCommand OutParameter(string field, Action<IEnumerable<DateTime?>> setter)
+        public WArrayBindCommand OutParameter(string field, Action<IEnumerable<DateTime?>> setter)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.Date, ParameterDirection.Output);
             //param.OracleDbType = OracleDbType.Date;
@@ -170,7 +170,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Paramter name</param>
         /// <param name="values">Array of nullable integers</param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<int?> values)
+        public WArrayBindCommand Parameter(string field, IEnumerable<int?> values)
         {
             if (values == null)
             {
@@ -188,7 +188,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<long?> values)
+        public WArrayBindCommand Parameter(string field, IEnumerable<long?> values)
         {
             if (values == null)
             {
@@ -206,7 +206,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<long> values)
+        public WArrayBindCommand Parameter(string field, IEnumerable<long> values)
         {
             if (values == null)
             {
@@ -224,7 +224,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Paramter name</param>
         /// <param name="values">Array of integers</param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<int> values) 
+        public WArrayBindCommand Parameter(string field, IEnumerable<int> values) 
         {
             if (values == null)
             {
@@ -247,7 +247,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field">Parameter name</param>
         /// <param name="values">Array of dates</param>
         /// <returns></returns>
-        public WNonQueryArrayCommand Parameter(string field, IEnumerable<DateTime?> values)
+        public WArrayBindCommand Parameter(string field, IEnumerable<DateTime?> values)
         {
             if (values == null)
             {
