@@ -16,9 +16,9 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </summary>
         /// <param name="nRowsAffected">Return value of ExecuteDML</param>
         /// <param name="parameters">List of oracle parameters</param>
-        internal void OnQueryExecuted(ITraceContext ctx, OracleParameterCollection parameters)
+        internal void OnQueryExecuted(ITraceContext ctx, OracleCommand cmd)
         {
-            var x = from OracleParameter p in parameters
+            var x = from OracleParameter p in cmd.Parameters
                     where _bindParameters.Contains(p.ParameterName)
                     let setter = _bindParameters[p.ParameterName].OutputValueUpdater
                     where setter != null
@@ -26,7 +26,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
             // For array parameters, _bindParameters contains "BUCKETLIST" whereas parameters contains "BUCKETLIST0"
             // For this reason we cannot expect all names in parameters to be available in _bindParameters
             // Thus we are including the _bindParameters.Contains() condition
-            var query = from OracleParameter p in parameters
+            var query = from OracleParameter p in cmd.Parameters
                         where _bindParameters.Contains(p.ParameterName)
                         let setter = _bindParameters[p.ParameterName].OutputValueUpdater
                         where setter != null
@@ -41,7 +41,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
             }
             if (ctx != null)
             {
-                var outParams = from OracleParameter p in parameters
+                var outParams = from OracleParameter p in cmd.Parameters
                                 where p.Direction == ParameterDirection.InputOutput || p.Direction == ParameterDirection.Output
                                 select p;
 
@@ -67,7 +67,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
                 OnQueryExecuting(cmd);
                 QueryLogging.TraceOracleCommand(conn.TraceContext, cmd, ActionName);
                 var rowsAffected = cmd.ExecuteNonQuery();
-                OnQueryExecuted(conn.TraceContext, cmd.Parameters);
+                OnQueryExecuted(conn.TraceContext, cmd);
                 return rowsAffected;
             }
             catch (OracleException ex)

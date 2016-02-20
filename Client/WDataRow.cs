@@ -157,16 +157,20 @@ namespace HappyOracle.WellManagedDataAccess.Client
 
         public int? GetInteger(int index)
         {
-            var val = _reader.GetOracleDecimal(index);  // GetValueAs<OracleDecimal>(index);
-            if (val.IsNull)
+            if (_reader.IsDBNull(index))
             {
                 return null;
             }
-            if (!val.IsInt)
-            {
-                throw new InvalidCastException(string.Format("Field {0} is not an integer. Retrieved value is {1}", index, val.ToString()));
-            }
-            return val.ToInt32();
+            return _reader.GetInt32(index);  // GetValueAs<OracleDecimal>(index);
+            //if (val.IsNull)
+            //{
+            //    return null;
+            //}
+            //if (!val.IsInt)
+            //{
+            //    throw new InvalidCastException(string.Format("Field {0} is not an integer. Retrieved value is {1}", index, val.ToString()));
+            //}
+            //return val.ToInt32();
         }
 
         //Ankit: Added long data handler function to handle long integer data send from SAP.
@@ -181,16 +185,20 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </remarks>
         public long? GetLong(int index)
         {
-            var val = _reader.GetOracleDecimal(index);  // GetValueAs<OracleDecimal>(index);
-            if (val.IsNull)
+            if (_reader.IsDBNull(index))
             {
                 return null;
             }
-            if (!val.IsInt)
-            {
-                throw new InvalidCastException($@"Field {index} is not an long. Retrieved value is {val.Value}");
-            }
-            return val.ToInt64();
+            return _reader.GetInt64(index);  // GetValueAs<OracleDecimal>(index);
+            //if (val.IsNull)
+            //{
+            //    return null;
+            //}
+            //if (!val.IsInt)
+            //{
+            //    throw new InvalidCastException($@"Field {index} is not an long. Retrieved value is {val.Value}");
+            //}
+            //return val.ToInt64();
         }
 
         public long? GetLong(string fieldName)
@@ -341,40 +349,44 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </summary>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        public TimeSpan? GetIntervalDS(string fieldName)
+        public TimeSpan? GetTimeSpan(string fieldName)
         {
-            return GetIntervalDS(GetIndex(fieldName));
+            return GetTimeSpan(GetIndex(fieldName));
         }
 
-        public TimeSpan? GetIntervalDS(int index)
+        public TimeSpan? GetTimeSpan(int index)
         {
-            var val = _reader.GetOracleIntervalDS(index); // GetValueAs<OracleIntervalDS>(index);
-            if (val.IsNull)
+            if (_reader.IsDBNull(index))
             {
                 return null;
             }
-            return val.Value;
+            return _reader.GetTimeSpan(index);   //.GetOracleIntervalDS(index); // GetValueAs<OracleIntervalDS>(index);
+            //if (val.IsNull)
+            //{
+            //    return null;
+            //}
+            //return val.Value;
         }
 
-        public long? GetIntervalYM(string fieldName)
-        {
-            return GetIntervalYM(GetIndex(fieldName));
-        }
+        //public long? GetIntervalYM(string fieldName)
+        //{
+        //    return GetIntervalYM(GetIndex(fieldName));
+        //}
 
-        /// <summary>
-        /// IntervalYM. Returns number of months
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public long? GetIntervalYM(int index)
-        {
-            var val = _reader.GetOracleIntervalYM(index);  // GetValueAs<OracleIntervalYM>(index);
-            if (val.IsNull)
-            {
-                return null;
-            }
-            return val.Value;
-        }
+        ///// <summary>
+        ///// IntervalYM. Returns number of months
+        ///// </summary>
+        ///// <param name="index"></param>
+        ///// <returns></returns>
+        //public long? GetIntervalYM(int index)
+        //{
+        //    var val = _reader.GetOracleIntervalYM(index);  // GetValueAs<OracleIntervalYM>(index);
+        //    if (val.IsNull)
+        //    {
+        //        return null;
+        //    }
+        //    return val.Value;
+        //}
 
         //#if DEBUG
         //        [Obsolete]

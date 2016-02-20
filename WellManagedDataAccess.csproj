@@ -67,7 +67,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Doc\Ask Tom On Top-n and Pagination Queries.mht" />
-    <None Include="Doc\SqlBinder Classes.cd" />
+    <None Include="Doc\WCommand.cd" />
     <None Include="Doc\EclipseLibrary.shfbproj" />
     <None Include="Doc\Regular Expression Based Token Replacement in ASP_NET.mht" />
     <None Include="LICENSE" />

@@ -612,3 +612,11 @@ Whenever you pass a byte array to the `Parameter` function, a BLOB parameter is 
 - OracleTimeStampLTZ
 - OutRefCursorParameter (Done)
 - Diagnostic tests for select queries
+- Migrating from ODP.NET
+- Getting Binaries
+- End to end examples
+- How it works
+- How to use
+- Quick start
+- Why WellManagedDataAccess
+- WMDA alternatives

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using HappyOracle.WellManagedDataAccess.Helpers;
+using Oracle.ManagedDataAccess.Client;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Runtime.ExceptionServices;
-using Oracle.ManagedDataAccess.Client;
-using HappyOracle.WellManagedDataAccess.Client;
 using System.Linq;
-using System.Security.Authentication;
-using HappyOracle.WellManagedDataAccess.Helpers;
+using System.Runtime.ExceptionServices;
 
 namespace HappyOracle.WellManagedDataAccess.Client
 {
@@ -145,7 +143,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <param name="field"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WCommand<T> ParameterIntervalDS(string field, TimeSpan? value)
+        public WCommand<T> Parameter(string field, TimeSpan? value)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.IntervalDS, ParameterDirection.Input);
             param.Value = value ?? (object)DBNull.Value;

@@ -169,7 +169,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// ]]>
         /// </code>
         /// </example>
-        public void ParameterXmlArray(string field, IList<string> values)
+        public void ParameterRepeat(string field, IList<string> values)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.Varchar2, ParameterDirection.Input);
             if (values == null || !values.Any())
@@ -215,7 +215,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// ]]>
         /// </example>
         /// </remarks>
-        public void ParameterXmlArray(string field, IEnumerable<int> values)
+        public void ParameterRepeat(string field, IEnumerable<int> values)
         {
             var param = CreateOrUpdateParameter(field, OracleDbType.Int32, ParameterDirection.Input);
             //param.OracleDbType = OracleDbType.Int32;
@@ -370,6 +370,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         {
             cmd.BindByName = true;
             cmd.InitialLONGFetchSize = 1024;    // Retrieve first 1K chars from a long column
+            cmd.InitialLOBFetchSize = 1024;
         }
 
 
