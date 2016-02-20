@@ -71,6 +71,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
     /// ]]>
     /// </code>
     /// </example>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class WConnection : IDisposable
     {
         #region Construction and Destruction
@@ -109,7 +110,8 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <summary>
         /// Disposes the connection
         /// </summary>
-        public void Dispose()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+        public virtual void Dispose()
         {
             _conn.Dispose();
         }

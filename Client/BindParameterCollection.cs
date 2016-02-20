@@ -26,20 +26,20 @@ namespace HappyOracle.WellManagedDataAccess.Client
                 return item.ParameterName;
             }
 
-            public OracleCommand CreateOracleCommand(OracleConnection conn, string query)
+            public OracleCommand CreateOracleCommand(OracleConnection conn, string sql)
             {
                 if (conn == null)
                 {
                     throw new ArgumentNullException(nameof(conn));
                 }
-                if (string.IsNullOrWhiteSpace(query))
+                if (string.IsNullOrWhiteSpace(sql))
                 {
-                    throw new ArgumentNullException(nameof(query));
+                    throw new ArgumentNullException(nameof(sql));
                 }
                 //var query = binder.CommandText;
-                if (query.SkipWhile(p => char.IsWhiteSpace(p)).First() == '<')
+                if (sql.SkipWhile(p => char.IsWhiteSpace(p)).First() == '<')
                 {
-                    query = XmlToSql.BuildQuery(query,
+                    sql = XmlToSql.BuildQuery(sql,
                         this.ToDictionary(p => p.ParameterName, p => p.Value,
                             StringComparer.InvariantCultureIgnoreCase),
                         this.Where(p => p.XmlRepeatCount >= 0)
@@ -49,9 +49,9 @@ namespace HappyOracle.WellManagedDataAccess.Client
                 }
 
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = query;
+                cmd.CommandText = sql;
 
-                var paramsUsed = XmlToSql.GetParametersUsed(query);
+                var paramsUsed = XmlToSql.GetParametersUsed(sql);
 
                 foreach (var name in paramsUsed)
                 {

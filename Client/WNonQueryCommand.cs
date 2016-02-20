@@ -95,10 +95,10 @@ namespace HappyOracle.WellManagedDataAccess.Client
 
         private IEnumerable<WDataRow> ReadReader(OracleDataReader reader)
         {
-            var row = new WDataRow(reader.GetSchemaTable());
+            var row = new WDataRow(reader);
             while (reader.Read())
             {
-                row.SetValues(reader);
+                //row.SetValues(reader);
                 yield return row;
             }
         }

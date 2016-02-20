@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="XPath\EnumerableEx.cs" />
     <Compile Include="Client\BindParameter.cs" />
     <Compile Include="Client\BindParameterCollection.cs" />

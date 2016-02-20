@@ -189,7 +189,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
             var inException = false;
             EventHandler<FirstChanceExceptionEventArgs> x = (object s, FirstChanceExceptionEventArgs e) => inException = true;
 #endif
-            var row = new WDataRow(reader.GetSchemaTable());
+            var row = new WDataRow(reader);
             try
             {
 #if DEBUG
@@ -197,7 +197,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
 #endif
                 while (reader.Read())
                 {
-                    row.SetValues(reader);
+                    //row.SetValues(reader);
                     yield return _factory(row);
                 }
             }

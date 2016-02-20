@@ -19,8 +19,10 @@ namespace HappyOracle.WellManagedDataAccess.Client
     /// </remarks>
     public class WDataRow
     {
-        //private readonly OracleDataReader _reader;
-        private readonly object[] _values;
+        private readonly OracleDataReader _reader;
+
+        //[Obsolete]
+        //private readonly object[] _values;
 
         /// <summary>
         /// Maps field name to its ordinal. It is possible that the same field name will be retrieved multiple times from the query.
@@ -40,10 +42,11 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// Create an instance once you have recieved a reader
         /// </summary>
         /// <param name="schemaTable"></param>
-        internal WDataRow(DataTable schemaTable)
+        internal WDataRow(OracleDataReader reader)
         {
-            _values = new object[schemaTable.Rows.Count];
-
+            var schemaTable = reader.GetSchemaTable();
+            //_values = new object[schemaTable.Rows.Count];
+            _reader = reader;
             _fieldMap = (from DataRow item in schemaTable.Rows
                          select new
                          {
@@ -52,17 +55,18 @@ namespace HappyOracle.WellManagedDataAccess.Client
                          }).ToLookup(p => p.ColumnName, p => p.ColumnOrdinal, StringComparer.InvariantCultureIgnoreCase);
         }
 
-        /// <summary>
-        /// Call this each time the reader is repositioned
-        /// </summary>
-        /// <param name="reader"></param>
-        internal void SetValues(OracleDataReader reader)
-        {
-            foreach (var dis in _values.OfType<IDisposable>()) {
-                throw new NotImplementedException();
-            }
-            reader.GetOracleValues(_values);
-        }
+        ///// <summary>
+        ///// Call this each time the reader is repositioned
+        ///// </summary>
+        ///// <param name="reader"></param>
+        //[Obsolete]
+        //internal void SetValues(OracleDataReader reader)
+        //{
+        //    foreach (var dis in _values.OfType<IDisposable>()) {
+        //        throw new NotImplementedException();
+        //    }
+        //    reader.GetOracleValues(_values);
+        //}
 
         /// <summary>
         /// Thros KeyNotFoundException if the fieldname is not part of the result set
@@ -100,12 +104,12 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <returns></returns>
         public string GetString(int index)
         {
-            var val = GetValueAs<OracleString>(index);
-            if (val.IsNull)
-            {
-                return null;
-            }
-            return val.Value;
+            return _reader.GetString(index);  // GetValueAs<OracleString>(index);
+            //if (val.IsNull)
+            //{
+            //    return null;
+            //}
+            //return val.Value;
         }
 
         /// <summary>
@@ -153,7 +157,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
 
         public int? GetInteger(int index)
         {
-            var val = GetValueAs<OracleDecimal>(index);
+            var val = _reader.GetOracleDecimal(index);  // GetValueAs<OracleDecimal>(index);
             if (val.IsNull)
             {
                 return null;
@@ -177,14 +181,14 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </remarks>
         public long? GetLong(int index)
         {
-            var val = GetValueAs<OracleDecimal>(index);
+            var val = _reader.GetOracleDecimal(index);  // GetValueAs<OracleDecimal>(index);
             if (val.IsNull)
             {
                 return null;
             }
             if (!val.IsInt)
             {
-                throw new InvalidCastException($@"Field {index} is not an long. Retrieved value is {val}");
+                throw new InvalidCastException($@"Field {index} is not an long. Retrieved value is {val.Value}");
             }
             return val.ToInt64();
         }
@@ -209,7 +213,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </remarks>
         public Decimal? GetDecimal(int index)
         {
-            var val = GetValueAs<OracleDecimal>(index);
+            var val = _reader.GetOracleDecimal(index);  // GetValueAs<OracleDecimal>(index);
             if (val.IsNull)
             {
                 return null;
@@ -239,7 +243,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </remarks>
         public DateTime? GetDate(int index)
         {
-            var val = GetValueAs<INullable>(index);
+            var val = (INullable)_reader.GetProviderSpecificValue(index);  //.GetOracleDate(index);  // GetValueAs<INullable>(index);
             if (val.IsNull)
             {
                 return null;
@@ -258,7 +262,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
 
         public byte[] GetBlob(int index)
         {
-            var val = GetValueAs<OracleBlob>(index);
+            var val = _reader.GetOracleBlob(index);  // GetValueAs<OracleBlob>(index);
             if (val.IsNull)
             {
                 return null;
@@ -286,7 +290,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </remarks>
         public DateTimeOffset? GetDateTimeOffset(int index)
         {
-            var val = GetValueAs<INullable>(index);
+            var val = (INullable)_reader.GetProviderSpecificValue(index);  // GetValueAs<INullable>(index);
             if (val.IsNull)
             {
                 return null;
@@ -344,7 +348,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
 
         public TimeSpan? GetIntervalDS(int index)
         {
-            var val = GetValueAs<OracleIntervalDS>(index);
+            var val = _reader.GetOracleIntervalDS(index); // GetValueAs<OracleIntervalDS>(index);
             if (val.IsNull)
             {
                 return null;
@@ -364,7 +368,7 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// <returns></returns>
         public long? GetIntervalYM(int index)
         {
-            var val = GetValueAs<OracleIntervalYM>(index);
+            var val = _reader.GetOracleIntervalYM(index);  // GetValueAs<OracleIntervalYM>(index);
             if (val.IsNull)
             {
                 return null;
@@ -434,25 +438,25 @@ namespace HappyOracle.WellManagedDataAccess.Client
         //                throw new InvalidCastException(string.Format("Field {0}: Could not cast {1} to {2}", fieldName, obj.GetType().FullName, typeof(T).FullName), ex);
         //            }
         //        }
-
-        private T GetValueAs<T>(int index)
-        {
-            object obj = _values[index];
-            if (obj == null)
-            {
-                return default(T);
-            }
-            try
-            {
-                return (T)obj;
-            }
-            catch (InvalidCastException)
-            {
-                var fieldName = _fieldMap.Where(p => p.Contains(index)).Select(p => p.Key).First();
-                throw new InvalidCastException($@"Field {fieldName} at index {index} could not be cast from
-                    {obj.GetType().FullName} to {typeof(T).FullName}");
-            }
-        }
+        //[Obsolete]
+        //private T GetValueAs<T>(int index)
+        //{
+        //    object obj = _values[index];
+        //    if (obj == null)
+        //    {
+        //        return default(T);
+        //    }
+        //    try
+        //    {
+        //        return (T)obj;
+        //    }
+        //    catch (InvalidCastException)
+        //    {
+        //        var fieldName = _fieldMap.Where(p => p.Contains(index)).Select(p => p.Key).First();
+        //        throw new InvalidCastException($@"Field {fieldName} at index {index} could not be cast from
+        //            {obj.GetType().FullName} to {typeof(T).FullName}");
+        //    }
+        //}
 
 #if DEBUG
         /// <summary>
@@ -460,10 +464,10 @@ namespace HappyOracle.WellManagedDataAccess.Client
         /// </summary>
         internal void DebugCheck()
         {
-            foreach (var dis in _values.OfType<IDisposable>())
-            {
-                dis.Dispose();
-            }
+            //foreach (var dis in _values.OfType<IDisposable>())
+            //{
+            //    dis.Dispose();
+            //}
             if (_debugAccessedFieldNames.Count == 0)
             {
                 // OK. They must have accessed all fields by index
