@@ -1,4 +1,12 @@
-# What is *WellManagedDataAccess* Library#
+# Why WellManagedDataAccess #
+
+WellManagedDataAccess is a .NET class library which wraps ODP.NET functionality into task specific classes so that you can focus on your task and not be overwhelmed by the plethora of of settings which are irrelevant for the task at hand.
+
+1. Instead of one general purpose `OracleCommand` class we have task specific commands for queries and non queries. Each of these commands provide only the interface relevant for the query. SELECT query command does not offer to bind out parameters whereas non query command offers out parameters as well as associative array parameters.
+
+1. When creating a parameter, you simply pass in the name and value. The type of the parameter is inferred from the .NET type of the value being passed and all `OracleParameter` fields are set accordingly.
+
+1. You can tweak your query based on the parameter values of the query. This is very useful since a common use case is that some where clauses should be applied only if a value is passed for the parameter.
 
 ODP.NET was invented during the .NET 2.0 days. Whereas it provides fairly comprehensive access to Oracle database functionality, it does not make it easy to perform common tasks. `OracleDataReader` and `OracleDataset` return query results as loosely typed object values which must then be cast to the .NET type you are interested in. Today's modern applications need to have the results in strongly typed generic collections so that they can be processed further by the application. Converting the results from loosely typed values to a strongly typed collection requires a lot of boiler plate code. This library which we call *WellManagedDataAccess* library encapsulates all this boiler plate code using the power of .NET generic features. Thus you can write succinct code and focus on the functionality of your application.
 

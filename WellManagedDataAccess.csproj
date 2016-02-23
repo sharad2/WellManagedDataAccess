@@ -7,10 +7,11 @@
     <ProjectGuid>{8D2EEE43-6E37-42FF-8207-5D317A825C99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HappyOracle.WellManagedDataAccess</RootNamespace>
-    <AssemblyName>HappyOracle.WellManagedDataAccess</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>WOracle.WellManagedDataAccess</RootNamespace>
+    <AssemblyName>WOracle.WellManagedDataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +29,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assembly-Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
@@ -78,6 +82,7 @@
     <None Include="Wiki\QueryPruning.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assembly-Icon.ico" />
     <Content Include="Doc\HTMLPage1.html" />
     <Content Include="Doc\Oracle Security.txt" />
     <Content Include="Doc\OracleDataSource.htm" />
